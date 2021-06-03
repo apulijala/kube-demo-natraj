@@ -1,0 +1,61 @@
+  Network CIDR is 192.168.33.0/24
+    
+    
+  1) Initialize vagarnt. 
+   
+  2) on each machine verify that you are able to ping every other machine.  
+  for host in $(grep 192.168 /etc/hosts | awk  '{print $1}') ; do          ping -c 1 "$host"; done
+
+  3) 192.168.33.12-16 
+  
+  4) Control plane 
+  
+  5) 192.168.33.13
+  
+  Kubernetes Control Plane
+  1) Test if all mac addresses are unite. After running the scripts, verify the arp cache.
+  arp -a | grep "192.168" | awk '{print $4}'  # Will give you mac address. 
+   
+  arp -a | grep "192.168" | awk '{print $4}' | wc -l # Number here. 
+  arp -a | grep "192.168" | awk '{print $4}' | sort -u | wc -l # Number here. 
+  
+  Both of htem should return same results. 
+  
+  2) For jumping from one box to another. 
+  we will enable ssh password login as well as key login. 
+  add one user called admin in sudo group. 
+  a) Enable root login. Root login is 
+	# This regular expr needs to be corrected. 
+   sed -i.bak -e 's@\(#\)\(PermitRootLogin\)\(.*\)@\2 yes@' /etc/ssh/sshd_config
+   systemctl restart sshd
+   systemctl status -l sshd
+   execute it on all machines.
+   This just enables root login.  
+  
+  
+  Add Managers
+  
+  Add workers. 
+  
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+  
