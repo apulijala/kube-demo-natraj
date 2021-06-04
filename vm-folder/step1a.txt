@@ -1,0 +1,9 @@
+# Allowing root login
+sed -i.bak -e 's@\(#\)\(PermitRootLogin\)\(.*\)@\2 yes@' /etc/ssh/sshd_config
+# verify above 
+less /etc/ssh/sshd_config
+#  restart and  verify ssh
+systemctl restart sshd
+systemctl status -l  sshd
+# set the hostname
+hostnamectl set-hostname control
