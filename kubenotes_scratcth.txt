@@ -1,0 +1,55 @@
+1) Setting up the Control Node. 
+    a) ON all Nodes: disable swap
+    b) On all nodes: disable firewall or open appropriate ports in a firewall. 
+    c) On all nodes set up the host name resoolving through /etc/hosts. 
+    d) On conrtol : kubeadm init
+    e) Take a not of the kubeadm join command that is shown after initializing the cluster
+    
+Starting the cluster. 
+kubeadm init # Disable firewall. 
+
+Create the client config file by folloowing following stesp 
+mkdir -p $home/.kube
+sudo  cp -l /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Add student user and make hime part of wheel group (for sudo privileges). 
+At this one node cluster is present. to futher configure. 
+Use kubectl cluster-info to verify.    
+kubectl get nodes will give a not ready status, which is normal at this stage.
+kubectl join copy it and this needs to be executed on worker nodes . 
+
+
+Understanding Node Networking requirements. 
+A network add-on must be installed for pods to communicate. 
+CNI is the Container network itnerface, which works with adds ons to implement networking. 
+Diffrent project for offering kubernetes network support. which requires support or the followint types of networking. 
+contaienr to container
+pod to pod
+pod to service
+external to service. 
+
+Look of an add on that supprts network policy as well as RBAC(both covered later this course)
+We will use weave add on
+Others are: 
+Flannel 
+
+
+Common pod networking plugins:
+Flannel: A layer 3 ipv4 network between cluster nodes that can use several backend mechanisms such as VXLAN. 
+Weave: A common add on for a CNI enabled Kubernetes cluster. 
+Calico: A layer 3 solution that uses IP Encapusulation and is used in kubernetes, openstack, Docker and others. 
+AWS VPC: Common of aws environments. 
+
+Create a single cluster . Install pod network add on 
+Go to kubernetes documentation for Weave Net. Control node. 
+
+
+Practical 
+kubectl get pods --all-namespaces. Verify weave net is there. 
+kubectl get nodes 
+cluster should be in active status. 
+
+Now go to each worker node. 
+ssh to each o
+
