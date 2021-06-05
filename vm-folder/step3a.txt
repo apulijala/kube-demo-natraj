@@ -1,0 +1,20 @@
+# Crete user as cluster is being provisioned by normal user with sudo priviletes
+useradd student
+visudo # commented out the wheel group without password and enabled with password. 
+usermod -aG wheel student
+id student
+su - student
+
+# this is what has to happen if there are one more than one active network cards. We have
+# choose network which has ip range of workers. 
+kubeadm init --apiserver-advertise-address 192.168.33.13 # without cidr. need to check on this one. 
+
+# what we have done. 
+kubeadm init # This bound the api server address to enp0s3 network card with ip address in 10.0. 
+
+# Above had to be undone. commands below. Reset will be difficult, after running Pod network. 
+kubeadm reset
+
+# Need to run apiserver comamnd after reset
+
+

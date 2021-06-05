@@ -1,0 +1,8 @@
+sudo -i 
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.old
+curl -o /etc/ssh/sshd_config https://raw.githubusercontent.com/apulijala/kube-demo-natraj/master/vm-folder/sshd_config
+# less /etc/ssh/sshd_config # just to verify
+systemctl restart sshd
+systemctl status -l sshd
+hostnamectl set-hostname worker1
+passwd # set the password

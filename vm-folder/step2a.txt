@@ -1,0 +1,50 @@
+# mkdir correct entroy
+
+
+cd /tmp
+yum install -y git vim bash-completion
+cd /tmp/sanderscripts/
+
+# Run setup-docker.sh and setup-kubetools.sh 
+./setup-docker.sh && ./setup-kubetools.sh
+
+# Verify host entries in /etc/hosts
+ping -c 1 control
+ping -c 1 worker1
+ping -c 1 worker2
+ping -c 1 worker3
+ping -c 1 control.example.com
+ping -c 1 worker3.example.com
+ping -c 1 worker1.example.com
+ping -c 1 worker2.example.com
+
+# verify docker is up. 
+systemctl status docker
+
+# verify docker cli 
+docker --version
+
+# verify containerd
+rpm -qa | grep "containerd"
+
+# kubernetes installation and verification. 
+kubeadm
+kubectl --help
+
+#  Enable bash completion for kubectl
+source /usr/share/bash-completion/bash_completion
+pwd
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+kubectl completion bash >/etc/bash_completion.d/kubectl
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -F __start_kubectl k' >>~/.bashrc
+source ~/.bashrc 
+
+
+# verify swap space is off 
+free -m
+less /etc/fstab 
+
+# verify ip settings match 
+sysctl -a | grep "net.bridge.bridge-nf-call-ip6tables"
+sysctl -a | grep "net.bridge.bridge-nf-call-iptables"
